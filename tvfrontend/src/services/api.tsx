@@ -33,7 +33,7 @@ const HubParadas: React.FC = () => {
   // Função para buscar os dados da API
   const fetchData = async () => {
     try {
-      const response = await fetch('http://192.168.16.194:8006/api/hubparadas'); 
+      const response = await fetch('http://192.168.16.240:8006/api/hubparadas'); 
       if (!response.ok) throw new Error('Erro ao carregar dados');
       let result: ParadaData[] = await response.json();
 
