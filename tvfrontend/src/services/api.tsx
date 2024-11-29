@@ -8,6 +8,7 @@ interface ParadaData {
   dsarearesp: string;
   dthriniparada: string;
   tmpultparada: number;
+  stmaquina: number;
 }
 
 // Função para remover duplicatas com base em uma chave única
@@ -33,27 +34,36 @@ const HubParadas: React.FC = () => {
   // Função para buscar os dados da API
   const fetchData = async () => {
     try {
-      const response = await fetch('http://192.168.16.240:8006/api/hubparadas'); 
+      const response = await fetch('http://192.168.16.240:8006/api/hubparadas');
       if (!response.ok) throw new Error('Erro ao carregar dados');
       let result: ParadaData[] = await response.json();
-
+  
+      // Verificar os dados recebidos
+      console.log("Dados recebidos da API:", result);
+  
       // Remove duplicatas
       result = removeDuplicates(result);
-
-      setData(result);
-
+  
+      // Filtra apenas máquinas com stmaquina === 0
+      const filteredResult = result.filter((item) => item.stmaquina === 0);
+  
+      // Verificar os dados filtrados
+      // console.log("Dados após o filtro stmaquina === 0:", filteredResult);
+  
+      // Atualiza os estados
+      setData(filteredResult);
+  
       // Extrair áreas responsáveis únicas
-      const uniqueAreas = Array.from(new Set(result.map((item) => item.dsarearesp || 'Sem área definida')));
+      const uniqueAreas = Array.from(new Set(filteredResult.map((item) => item.dsarearesp || 'Sem área definida')));
       setAreas(uniqueAreas);
-
+  
       setLoading(false);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {
       setError('Não foi possível carregar os dados.');
       setLoading(false);
     }
   };
-
+  
   // Atualiza as paradas filtradas sempre que a área selecionada mudar
   useEffect(() => {
     if (selectedArea) {
