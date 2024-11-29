@@ -135,17 +135,18 @@ const HubParadas: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredParadas.map((item, index) => (
+          {filteredParadas
+            .sort((a, b) => b.tmpultparada - a.tmpultparada) // Ordena do maior para o menor
+            .map((item, index) => (
               <tr key={index} className={index % 2 === 0 ? 'bg-gray-100' : ''}>
                 <td className="border border-gray-400 p-2 font-semibold text-center">{item.cdmaquina}</td>
                 <td className="border border-gray-400 p-2 font-semibold text-center">{item.dsparada}</td>
                 <td className="border border-gray-400 p-2 font-semibold text-center">{item.dsarearesp || 'Sem área definida'}</td>
                 <td className="border border-gray-400 p-2 font-semibold text-center">{formatDate(item.dthriniparada)}</td>
                 <td className="border border-gray-400 p-2 bg-red-600 font-semibold text-center text-white">{formatTempo(item.tmpultparada)}</td>
-
               </tr>
             ))}
-          </tbody>
+        </tbody>
         </table>
       </div>
     </div>
