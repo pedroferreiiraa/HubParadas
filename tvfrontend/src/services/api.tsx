@@ -45,8 +45,8 @@ const HubParadas: React.FC = () => {
       result = removeDuplicates(result);
   
       // Filtra apenas máquinas com stmaquina === 0
-      const filteredResult = result.filter((item) => item.stmaquina === 0);
-  
+      const filteredResult = result.filter((item) => item.stmaquina === 0 || item.stmaquina === 2);
+
       // Verificar os dados filtrados
       // console.log("Dados após o filtro stmaquina === 0:", filteredResult);
   
@@ -58,6 +58,7 @@ const HubParadas: React.FC = () => {
       setAreas(uniqueAreas);
   
       setLoading(false);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {
       setError('Não foi possível carregar os dados.');
       setLoading(false);
