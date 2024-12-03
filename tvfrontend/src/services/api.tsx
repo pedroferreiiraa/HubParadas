@@ -9,6 +9,7 @@ interface ParadaData {
   dthriniparada: string;
   tmpultparada: number;
   stmaquina: number;
+  nrop: string;
 }
 
 // Função para remover duplicatas com base em uma chave única
@@ -43,9 +44,17 @@ const HubParadas: React.FC = () => {
   
       // Remove duplicatas
       result = removeDuplicates(result);
-  
+
+      const filteredResult = result.filter(
+        (item) => 
+          (item.stmaquina === 0 || item.stmaquina === 2) && 
+          (item.nrop?.trim() ?? '').length > 0 &&
+          (item.dsarearesp && item.dsarearesp !== 'Sem área definida') // Adicionando filtro para remover "Sem área definida"
+      );
+
       // Filtra apenas máquinas com stmaquina === 0
-      const filteredResult = result.filter((item) => item.stmaquina === 0 || item.stmaquina === 2);
+     
+      
 
       // Verificar os dados filtrados
       // console.log("Dados após o filtro stmaquina === 0:", filteredResult);
@@ -56,7 +65,9 @@ const HubParadas: React.FC = () => {
       // Extrair áreas responsáveis únicas
       const uniqueAreas = Array.from(new Set(filteredResult.map((item) => item.dsarearesp || 'Sem área definida')));
       setAreas(uniqueAreas);
-  
+      
+      console.log(`Dados filtrados: ${filteredResult}`)
+
       setLoading(false);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {

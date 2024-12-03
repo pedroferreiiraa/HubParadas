@@ -13,7 +13,7 @@ connectToDatabase();
 app.get('/api/hubparadas', async (req, res) => {
     try {    
         const query = `
-SELECT cdmaquina, dsparada, cdarearesp, dsarearesp, dthriniparada, stmaquina, tmpultparada
+SELECT cdmaquina, dsparada, cdarearesp, dsarearesp, dthriniparada, stmaquina, tmpultparada, nrop
 FROM viewWMTR;
         `;
         
