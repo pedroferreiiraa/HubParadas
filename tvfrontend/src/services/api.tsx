@@ -64,7 +64,17 @@ const HubParadas: React.FC = () => {
     "MANUTENCAO",
     "MONTAGEM",
     "ÁREA DESCONHECIDA",
-    "FERRAMENTARIA"
+    "FERRAMENTARIA",
+    "ENGENHARIA DE PROJETOS",
+     "ADMNISTRACAO",
+      "QUALIDADE",
+       "MATERIA PRIMA",
+        "SEGURANCA",
+         "RECURSOS HUMANOS",
+          "COMPRAS",
+           "PCP",
+            "TECNOLOGIA DA INFORMACAO",
+             "COMERCIAL"
   ]);
 
 
@@ -395,6 +405,7 @@ const HubParadas: React.FC = () => {
         ))}
       </div>
     </div>
+    <div></div>
 
     {/* Botões de galpões */}
     <div className="mb-4 lg:mb-0">

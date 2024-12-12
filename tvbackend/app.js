@@ -31,7 +31,7 @@ INNER JOIN
 ON 
     wmtr.nrop = ficha.nrop
 WHERE 
-    wmtr.dsgalpao IN ('TORNOS', 'INJETORAS MATRIZ', 'INJETORAS TUPIS', 'MONTAGEM');
+    wmtr.dsgalpao IN ('TORNOS', 'INJETORAS MATRIZ', 'INJETORAS TUPIS', 'MONTAGEM', 'ENGENHARIA DE PROJETOS', 'ADMNISTRACAO', 'QUALIDADE', 'MATERIA PRIMA', 'SEGURANCA', 'RECURSOS HUMANOS', 'COMPRAS', 'PCP', 'TECNOLOGIA DA INFORMACAO', 'COMERCIAL');
         `;
         
         // Conexão com o banco de dados e execução da consulta
