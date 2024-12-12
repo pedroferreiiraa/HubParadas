@@ -13,8 +13,25 @@ connectToDatabase();
 app.get('/api/hubparadas', async (req, res) => {
     try {    
         const query = `
-SELECT cdmaquina, dsparada, cdarearesp, dsarearesp, dthriniparada, stmaquina, tmpultparada, nrop
-FROM viewWMTR;
+SELECT 
+    RIGHT(wmtr.cdmaquina, LEN(wmtr.cdmaquina) - 3) AS cdmaquina,  
+    wmtr.dsparada,
+    wmtr.cdarearesp,
+    wmtr.dsarearesp,
+    wmtr.dthriniparada,
+    wmtr.stmaquina,
+    wmtr.tmpultparada,
+    wmtr.nrop,
+    wmtr.dsgalpao,
+    ficha.dsproduto
+FROM 
+    viewWMTR wmtr
+INNER JOIN 
+    viewWMTRFichaPro ficha
+ON 
+    wmtr.nrop = ficha.nrop
+WHERE 
+    wmtr.dsgalpao IN ('TORNOS', 'INJETORAS MATRIZ', 'INJETORAS TUPIS', 'MONTAGEM');
         `;
         
         // Conexão com o banco de dados e execução da consulta
