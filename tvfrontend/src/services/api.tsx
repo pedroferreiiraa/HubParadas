@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import {  ToastContainer } from 'react-toastify'; // Importando toast e ToastContainer
 
 // interface Responsavel {
 //   INJECAO: string,
@@ -64,13 +63,14 @@ const HubParadas: React.FC = () => {
     "SALA DE MOLDES",
     "MANUTENCAO",
     "MONTAGEM",
-    "ÁREA DESCONHECIDA"
+    "ÁREA DESCONHECIDA",
+    "FERRAMENTARIA"
   ]);
 
 
   const fetchData = async () => {
     try {
-      const response = await fetch('http://192.168.16.194:8006/api/hubparadas');
+      const response = await fetch('http://192.168.16.240:8006/api/hubparadas');
       if (!response.ok) throw new Error('Erro ao carregar dados');
       let result: ParadaData[] = await response.json();
   
@@ -472,8 +472,6 @@ const HubParadas: React.FC = () => {
       </div>
     </div> */}
   </div>
-
-  <ToastContainer />
 </div>
 
   );
