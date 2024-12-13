@@ -71,7 +71,6 @@ const HubParadas: React.FC = () => {
        "MATERIA PRIMA",
         "SEGURANCA",
          "RECURSOS HUMANOS",
-          "COMPRAS",
            "PCP",
             "TECNOLOGIA DA INFORMACAO",
              "COMERCIAL"
@@ -96,124 +95,148 @@ const HubParadas: React.FC = () => {
         )
         .sort((a, b) => b.tmpultparada - a.tmpultparada);
   
+        
+
       // Recupera as assinaturas anteriores para área, galpão e global
-      const previousGlobalSignatures: ParadaSignature[] = JSON.parse(
-        localStorage.getItem('paradaSignatures') || '[]'
-      );
-      const previousAreaSignatures: Record<string, ParadaSignature[]> = JSON.parse(
-        localStorage.getItem('areaParadaSignatures') || '{}'
-      );
-      const previousGalpaoSignatures: Record<string, ParadaSignature[]> = JSON.parse(
-        localStorage.getItem('galpaoParadaSignatures') || '{}'
-      );
+      // const previousGlobalSignatures: ParadaSignature[] = JSON.parse(
+      //   localStorage.getItem('paradaSignatures') || '[]'
+      // );
+      // const previousAreaSignatures: Record<string, ParadaSignature[]> = JSON.parse(
+      //   localStorage.getItem('areaParadaSignatures') || '{}'
+      // );
+      // const previousGalpaoSignatures: Record<string, ParadaSignature[]> = JSON.parse(
+      //   localStorage.getItem('galpaoParadaSignatures') || '{}'
+      // );
   
+
+      
       // Cria assinaturas para paradas atuais
-      const currentParadaSignatures: ParadaSignature[] = filteredResult.map(parada => ({
-        cdmaquina: parada.cdmaquina,
-        dsparada: parada.dsparada,
-        dthriniparada: parada.dthriniparada
-      }));
-  
+      // const currentParadaSignatures: ParadaSignature[] = filteredResult.map(parada => ({
+      //   cdmaquina: parada.cdmaquina,
+      //   dsparada: parada.dsparada,
+      //   dthriniparada: parada.dthriniparada,
+      //   dsgalpao: parada.dsgalpao
+      // }));
+
+      // const newParadasGlobal = selectedAreas.length === 0 && selectedGalpoes.length === 0 
+      // ? currentParadaSignatures.filter(
+      //     current => !selectedAreas.some(area => current.dsarearesp === area) &&
+      //               !selectedGalpoes.some(galpao => current.dsgalpao === galpao)
+      //   )
+      // : [];
+
       // Detecta novas paradas globais
-      const newParadasGlobal = currentParadaSignatures.filter(
-        current => !previousGlobalSignatures.some(
-          prev => 
-            prev.cdmaquina === current.cdmaquina &&
-            prev.dsparada === current.dsparada &&
-            prev.dthriniparada === current.dthriniparada
-        )
-      );
+      // const newParadasGlobal = currentParadaSignatures.filter(
+      //   current => !previousGlobalSignatures.some(
+      //     prev => 
+      //       prev.cdmaquina === current.cdmaquina &&
+      //       prev.dsparada === current.dsparada &&
+      //       prev.dthriniparada === current.dthriniparada
+      //   )
+      // );
   
       // Flag para controle de som
-      let shouldPlaySound = false;
+      // let shouldPlaySound = false;
   
-      // Se houver novas paradas globais e não houver área responsável selecionada, toca som
-      if (newParadasGlobal.length > 0 && selectedAreas.length === 0) {
-        shouldPlaySound = true;
-        // Atualiza o localStorage com as novas assinaturas globais
-        localStorage.setItem('paradaSignatures', JSON.stringify(currentParadaSignatures));
-      }
+      // // Se houver novas paradas globais e não houver área responsável selecionada, toca som
+      // if (newParadasGlobal.length > 0 && selectedAreas.length === 0) {
+      //   shouldPlaySound = true;
+      //   // Atualiza o localStorage com as novas assinaturas globais
+      //   localStorage.setItem('paradaSignatures', JSON.stringify(currentParadaSignatures));
+      // }
   
       // Lógica para áreas selecionadas
-      if (selectedAreas.length > 0) {
-        selectedAreas.forEach(area => {
-          // Filtra paradas da área específica
-          const areaParadas = filteredResult.filter(p => p.dsarearesp === area);
+      // if (selectedAreas.length > 0) {
+      //   selectedAreas.forEach(area => {
+      //     // Filtra paradas da área específica
+      //     const areaParadas = filteredResult.filter(p => p.dsarearesp === area);
   
-          // Cria assinaturas para paradas da área
-          const currentAreaSignatures: ParadaSignature[] = areaParadas.map(parada => ({
-            cdmaquina: parada.cdmaquina,
-            dsparada: parada.dsparada,
-            dthriniparada: parada.dthriniparada,
-            dsarearesp: parada.dsarearesp
-          }));
+      //     // Cria assinaturas para paradas da área
+      //     const currentAreaSignatures: ParadaSignature[] = areaParadas.map(parada => ({
+      //       cdmaquina: parada.cdmaquina,
+      //       dsparada: parada.dsparada,
+      //       dthriniparada: parada.dthriniparada,
+      //       dsarearesp: parada.dsarearesp
+      //     }));
   
-          // Recupera assinaturas anteriores para esta área
-          const previousAreaSigs = previousAreaSignatures[area] || [];
+      //     // Recupera assinaturas anteriores para esta área
+      //     const previousAreaSigs = previousAreaSignatures[area] || [];
   
-          // Detecta novas paradas na área
-          const newAreaParadas = currentAreaSignatures.filter(
-            current => !previousAreaSigs.some(
-              prev => 
-                prev.cdmaquina === current.cdmaquina &&
-                prev.dsparada === current.dsparada &&
-                prev.dthriniparada === current.dthriniparada
-            )
-          );
+      //     // Detecta novas paradas na área
+      //     const newAreaParadas = currentAreaSignatures.filter(
+      //       current => !previousAreaSigs.some(
+      //         prev => 
+      //           prev.cdmaquina === current.cdmaquina &&
+      //           prev.dsparada === current.dsparada &&
+      //           prev.dthriniparada === current.dthriniparada
+      //       )
+      //     );
   
-          // Se houver novas paradas na área
-          if (newAreaParadas.length > 0) {
-            shouldPlaySound = true;
+      //     // Se houver novas paradas na área
+      //     if (newAreaParadas.length > 0) {
+      //       shouldPlaySound = true;
   
-            // Atualiza localStorage para esta área específica
-            previousAreaSignatures[area] = currentAreaSignatures;
-          }
-        });
-      }
+      //       // Atualiza localStorage para esta área específica
+      //       previousAreaSignatures[area] = [
+      //         ...previousAreaSignatures[area].filter(prev => 
+      //           !currentAreaSignatures.some(current => 
+      //             current.cdmaquina === prev.cdmaquina &&
+      //             current.dsparada === prev.dsparada &&
+      //             current.dthriniparada === prev.dthriniparada
+      //           )
+      //         ),
+      //         ...newAreaParadas
+      //       ];
+            
+      //     }
+      //   });
+      // }
   
       // Lógica para galpões selecionados
-      selectedGalpoes.forEach(galpao => {
-        // Filtra paradas do galpão específico
-        const galpaoParadas = filteredResult.filter(p => p.dsgalpao === galpao);
+      // selectedGalpoes.forEach(galpao => {
+      //   // Filtra paradas do galpão específico
+      //   const galpaoParadas = filteredResult.filter(p => p.dsgalpao === galpao);
   
-        // Cria assinaturas para paradas do galpão
-        const currentGalpaoSignatures: ParadaSignature[] = galpaoParadas.map(parada => ({
-          cdmaquina: parada.cdmaquina,
-          dsparada: parada.dsparada,
-          dthriniparada: parada.dthriniparada,
-          dsgalpao: parada.dsgalpao
-        }));
+      //   // Cria assinaturas para paradas do galpão
+      //   const currentGalpaoSignatures: ParadaSignature[] = galpaoParadas.map(parada => ({
+      //     cdmaquina: parada.cdmaquina,
+      //     dsparada: parada.dsparada,
+      //     dthriniparada: parada.dthriniparada,
+      //     dsgalpao: parada.dsgalpao
+      //   }));
   
-        // Recupera assinaturas anteriores para este galpão
-        const previousGalpaoPrevSigs = previousGalpaoSignatures[galpao] || [];
+      //   // Recupera assinaturas anteriores para este galpão
+      //   const previousGalpaoPrevSigs = previousGalpaoSignatures[galpao] || [];
   
         // Detecta novas paradas no galpão
-        const newGalpaoParadas = currentGalpaoSignatures.filter(
-          current => !previousGalpaoPrevSigs.some(
-            prev => 
-              prev.cdmaquina === current.cdmaquina &&
-              prev.dsparada === current.dsparada &&
-              prev.dthriniparada === current.dthriniparada
-          )
-        );
+        // const newGalpaoParadas = currentGalpaoSignatures.filter(
+        //   current => !previousGalpaoPrevSigs.some(
+        //     prev => 
+        //       prev.cdmaquina === current.cdmaquina &&
+        //       prev.dsparada === current.dsparada &&
+        //       prev.dthriniparada === current.dthriniparada
+        //   )
+        // );
   
-        // Se houver novas paradas no galpão
-        if (newGalpaoParadas.length > 0) {
-          shouldPlaySound = true;
-  
-          // Atualiza localStorage para este galpão específico
-          previousGalpaoSignatures[galpao] = currentGalpaoSignatures;
-        }
-      });
+      //   // Se houver novas paradas no galpão
+      //   if (newParadasGlobal.length > 0 || Object.keys(previousAreaSignatures).some(
+      //     area => previousAreaSignatures[area].length > 0
+      //   ) || Object.keys(previousGalpaoSignatures).some(
+      //     galpao => previousGalpaoSignatures[galpao].length > 0
+      //   )
+      // ) {
+      //   shouldPlaySound = true;
+      // }
+      // });
   
       // Toca o som se necessário
-      if (shouldPlaySound) {
-        playSound();
+      // if (shouldPlaySound) {
+      //   playSound();
   
-        // Salva as assinaturas atualizadas
-        localStorage.setItem('areaParadaSignatures', JSON.stringify(previousAreaSignatures));
-        localStorage.setItem('galpaoParadaSignatures', JSON.stringify(previousGalpaoSignatures));
-      }
+      //   // Salva as assinaturas atualizadas
+      //   localStorage.setItem('areaParadaSignatures', JSON.stringify(previousAreaSignatures));
+      //   localStorage.setItem('galpaoParadaSignatures', JSON.stringify(previousGalpaoSignatures));
+      // }
   
       // Outros estados permanecem iguais
       setData(filteredResult);
@@ -230,43 +253,43 @@ const HubParadas: React.FC = () => {
   
 
   useEffect(() => {
-    let filtered = data;
-    if (selectedAreas.length > 0) {
-      filtered = filtered.filter((item) => selectedAreas.includes(item.dsarearesp));
-    }
-    if (selectedGalpoes.length > 0) {
-      filtered = filtered.filter((item) => selectedGalpoes.includes(item.dsgalpao));
-    }
-
-    if (filtered.length === 0) {
-      if (selectedAreas.length > 0 && selectedGalpoes.length > 0) {
-        setNoParadasMessage("Nenhuma parada encontrada para a área e galpão selecionados.");
-      } else if (selectedAreas.length > 0) {
-        setNoParadasMessage("Nenhuma parada encontrada para a área selecionada.");
-      } else if (selectedGalpoes.length > 0) {
-        setNoParadasMessage("Nenhuma parada encontrada para o galpão selecionado.");
-      } else {
-        setNoParadasMessage(null); // Nenhum filtro aplicado
+    const filtered = data.reduce((acc, item) => {
+      const matchArea = selectedAreas.length === 0 || selectedAreas.includes(item.dsarearesp);
+      const matchGalpao = selectedGalpoes.length === 0 || selectedGalpoes.includes(item.dsgalpao);
+      
+      if (matchArea && matchGalpao) {
+        acc.push(item);
       }
-    } else {
-      setNoParadasMessage(null); // Dados encontrados, limpa a mensagem
-    }
-
-
+      return acc;
+    }, []);
+  
+    const getMessage = () => {
+      if (selectedAreas.length > 0 && selectedGalpoes.length > 0) {
+        return "Nenhuma parada encontrada para a área e galpão selecionados.";
+      }
+      if (selectedAreas.length > 0) {
+        return "Nenhuma parada encontrada para a área selecionada.";
+      }
+      if (selectedGalpoes.length > 0) {
+        return "Nenhuma parada encontrada para o galpão selecionado.";
+      }
+      return null;
+    };
+  
+    setNoParadasMessage(filtered.length === 0 ? getMessage() : null);
     setFilteredParadas(filtered);
-
-    // Salvar no localStorage
+  
     localStorage.setItem('selectedAreas', JSON.stringify(selectedAreas));
     localStorage.setItem('selectedGalpoes', JSON.stringify(selectedGalpoes));
   }, [selectedAreas, selectedGalpoes, data]);
 
-  const playSound = () => {
-    const audio = new Audio('/sounds/alert.mp3');
-    audio.load(); // Garante que o áudio seja carregado
-    audio.play().catch((error) => {
-      console.error('Erro ao reproduzir som:', error);
-    });
-  };
+  // const playSound = () => {
+  //   const audio = new Audio('/sounds/alert.mp3');
+  //   audio.load(); // Garante que o áudio seja carregado
+  //   audio.play().catch((error) => {
+  //     console.error('Erro ao reproduzir som:', error);
+  //   });
+  // };
   
 
   useEffect(() => {
@@ -343,7 +366,7 @@ const HubParadas: React.FC = () => {
     "015": "LS1 160",
     "016": "Haitian 80",
     "017": "Himaco 120",
-    "018": "Tayu 140",
+    "018": "Tayu TKM 150",
     "019": "28 LS 280",
     "020": "LS2 160",
     "021": "Tayu 140",
@@ -354,23 +377,23 @@ const HubParadas: React.FC = () => {
     "026": "Primax 600",
     "027": "Fu Chun Shin 250",
     "101": "Tupis Primax 450",
-    "102": "Tupis Minzen 280",
-    "103": "Tupis Minzen 220",
-    "104": "Tupis Minzen 160",
-    "105": "Tupis Minzen 220",
+    "102": "Tupis Minzen 280D",
+    "103": "Tupis Minzen 220D",
+    "104": "Tupis Minzen 160D",
+    "105": "Tupis Minzen 220D",
     "106": "Tupis Primax 300",
-    "107": "Tupis Minzen 100",
-    "108": "Tupis Minzen 130",
+    "107": "Tupis Minzen 100D",
+    "108": "Tupis Minzen 130D",
     "109": "Tupis GEK 530",
-    "201": "Torno 1 Nardini",
-    "202": "Torno 2 Nardini",
-    "203": "Torno 3 Nardini",
-    "204": "Torno 4 Nardini",
-    "205": "Torno 5 Nardini",
-    "206": "Torno 6 Romi",
-    "207": "Torno 7 Romi",
-    "208": "Torno 8 Romi",
-    "209": "Torno 9 Romi",
+    "201": "Torno 1 Logic 195 II",
+    "202": "Torno 2 Logic 195 II",
+    "203": "Torno 3 Logic 195 II",
+    "204": "Torno 4 Logic 195 II",
+    "205": "Torno 5 Logic 195 II",
+    "206": "Torno 6 Centur 30 D",
+    "207": "Torno 7 Centur 30 D",
+    "208": "Torno 8 Centur 30 D",
+    "209": "Torno 9 Centur 30 D",
     "061": "Linha 1",
     "062": "Linha 2",
     "063": "Linha 3",
@@ -378,6 +401,8 @@ const HubParadas: React.FC = () => {
     "065": "Linha 5",
     "066": "Linha 6",
   };
+
+ 
 
   return (
 <div className="p-1">
@@ -388,24 +413,23 @@ const HubParadas: React.FC = () => {
     {/* Botões de áreas */}
     
     <div className="mb-4 lg:mb-0">
-      <p className="font-medium mt-2">Filtrar por Responsabilidade:</p>
-      <div className="flex flex-wrap">
-        {todosResponsaveis.map((responsavel) => (
-          <button
-            key={responsavel}
-            onClick={() => toggleAreaSelection(responsavel)}
-            className={`px-3 py-1 rounded text-sm font-medium mr-2 mt-1 ${
-              selectedAreas.includes(responsavel)
-                ? 'bg-green-500 text-white'
-                : 'bg-gray-300 text-gray-800'
-            }`}
-          >
-            {responsavel}
-          </button>
-        ))}
-      </div>
-    </div>
-    <div></div>
+  <p className="font-medium mt-2">Filtrar por Responsabilidade:</p>
+  <div className="flex flex-wrap gap-2 max-w-2xl">
+    {todosResponsaveis.map((responsavel) => (
+      <button
+        key={responsavel}
+        onClick={() => toggleAreaSelection(responsavel)}
+        className={`px-3 py-1 rounded text-sm font-medium ${
+          selectedAreas.includes(responsavel)
+            ? 'bg-green-500 text-white'
+            : 'bg-gray-300 text-gray-800'
+        }`}
+      >
+        {responsavel}
+      </button>
+    ))}
+  </div>
+</div>
 
     {/* Botões de galpões */}
     <div className="mb-4 lg:mb-0">
