@@ -37,7 +37,7 @@ const removeDuplicates = (data: ParadaData[]): ParadaData[] => {
   return Array.from(uniqueItems.values());
 };
 
-const HubParadas: React.FC = () => {
+const Ferramentaria: React.FC = () => {
   const [data, setData] = useState<ParadaData[]>([]);
   const [, setAreas] = useState<string[]>([]);
   const [selectedAreas, setSelectedAreas] = useState<string[]>([]);
@@ -50,29 +50,14 @@ const HubParadas: React.FC = () => {
   const [noParadasMessage, setNoParadasMessage] = useState<string | null>(null);
   // const [responsaveis, setResponsaveis] = useState<Responsavel[]>([]);
   const [todosResponsaveis] = useState<string[]>([
-    "INJEÇÃO",
-    "SUPRIMENTOS",
-    "USINAGEM",
-    "SALA DE MOLDES",
     "MANUTENCAO",
-    "MONTAGEM",
-    "ÁREA DESCONHECIDA",
     "FERRAMENTARIA",
-    "ENGENHARIA DE PROJETOS",
-     "ADMNISTRACAO",
-      "QUALIDADE",
-       "MATERIA PRIMA",
-        "SEGURANCA",
-         "RECURSOS HUMANOS",
-           "PCP",
-            "TECNOLOGIA DA INFORMACAO",
-             "COMERCIAL"
   ]);
 
 
   const fetchData = async () => {
     try {
-      const response = await fetch('http://localhost:8006/api/hubparadas');
+      const response = await fetch('http://localhost:8006/api/ferramentaria');
       if (!response.ok) throw new Error('Erro ao carregar dados');
       let result: ParadaData[] = await response.json();
   
@@ -505,4 +490,4 @@ const HubParadas: React.FC = () => {
   );
 };
 
-export default HubParadas;
+export default Ferramentaria;
